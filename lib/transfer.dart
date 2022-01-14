@@ -14,6 +14,7 @@ class _TransferState extends State<Transfer> {
   EtherAmount? balance;
   TextEditingController privateKey = TextEditingController();
   TextEditingController textAddress = TextEditingController();
+  TextEditingController textAmount = TextEditingController();
 
   Future<void Function()?>? send() async {
     final client = Web3Client(rpcUrl, Client());
@@ -29,7 +30,7 @@ class _TransferState extends State<Transfer> {
         gasPrice: null,
         // maxGas: 100000,
         maxGas: null,
-        value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 3),
+        value: EtherAmount.fromUnitAndValue(EtherUnit.ether, textAmount.text),
       ),
     );
     balance = await client.getBalance(address);
@@ -66,6 +67,13 @@ class _TransferState extends State<Transfer> {
             const Text('Send to'),
             TextField(
               controller: textAddress,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text('Amount (ETH)'),
+            TextField(
+              controller: textAmount,
             ),
             const SizedBox(
               height: 20,

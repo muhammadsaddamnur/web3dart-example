@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
-class Transfer extends StatefulWidget {
-  const Transfer({Key? key}) : super(key: key);
+class TransferLocalGanache extends StatefulWidget {
+  const TransferLocalGanache({Key? key}) : super(key: key);
 
   @override
-  _TransferState createState() => _TransferState();
+  _TransferLocalGanacheState createState() => _TransferLocalGanacheState();
 }
 
-class _TransferState extends State<Transfer> {
+class _TransferLocalGanacheState extends State<TransferLocalGanache> {
   String rpcUrl = 'HTTP://10.0.2.2:7545';
   EtherAmount? balance;
-  TextEditingController privateKey = TextEditingController();
+  TextEditingController textPrivateKey = TextEditingController();
   TextEditingController textAddress = TextEditingController();
   TextEditingController textAmount = TextEditingController();
 
   Future<void Function()?>? send() async {
     final client = Web3Client(rpcUrl, Client());
 
-    final credentials = EthPrivateKey.fromHex(privateKey.text);
+    final credentials = EthPrivateKey.fromHex(textPrivateKey.text);
     final address = credentials.address;
 
     await client.sendTransaction(
@@ -59,7 +59,7 @@ class _TransferState extends State<Transfer> {
             ),
             const Text('Your Private Key'),
             TextField(
-              controller: privateKey,
+              controller: textPrivateKey,
             ),
             const SizedBox(
               height: 20,
